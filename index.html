@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!-- using || with facing mode.  Secondly try creating html option embeded in code -->
+
+<html>
+  <body>
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>
+
+    <video id="vid" autoplay></video>
+    <script>
+      navigator.mediaDevices.getUserMedia({
+        video: {
+            width: {
+              min: 1280,
+              ideal: 1920,
+              max: 2560,
+            },
+            height: {
+              min: 720,
+              ideal: 1080,
+              max: 1440
+            },
+            facingMode: 'environment' || 'user'
+        }
+      })
+      .then(stream => {
+        document.getElementById("vid").srcObject = stream;
+      })
+
+      .then(stream => {
+
+        let scanner = new Instascan.Scanner(
+            {
+                video: document.getElementById('preview'), facingMode: "environment" || "user"
+            }
+        );
+        scanner.addListener('scan', function(content) {
+
+            let paths = ['https://ciegocielos.000webhostapp.com/confirmation.html', 'https://ciegocielos.000webhostapp.com/t1.html', 'https://ciegocielos.000webhostapp.com/t2.html', 'https://ciegocielos.000webhostapp.com/t3.html'];
+
+          window.location.href = "https://abertocielo.000webhostapp.com/confirmation.html"
+            sessionStorage.setItem("cont", content);
+
+        });
+        Instascan.Camera.getCameras().then(cameras =>
+        {
+
+            if(cameras.length > 0){
+                scanner.start(cameras[0]);
+            } else {
+                console.error("Não existe câmera no dispositivo!");
+            }
+        });
+
+
+      })
+
+      </script>
+    </script>
+  </body>
+</html>
