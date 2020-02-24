@@ -4,7 +4,8 @@
 
 <html>
   <body>
-    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>
+   <!--  <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script> -->
+   <script type="text/javascript" src="instascan.min.js"></script>
 
     <video id="vid" autoplay></video>
     <script>
@@ -20,7 +21,7 @@
               ideal: 1080,
               max: 1440
             },
-            facingMode: 'environment' || 'user'
+            facingMode: 'environment' // || 'user'
         }
       })
       .then(stream => {
@@ -31,7 +32,7 @@
 
         let scanner = new Instascan.Scanner(
             {
-                video: document.getElementById('preview'), facingMode: "environment" || "user"
+                video: document.getElementById('preview'), facingMode: "environment" // || "user"
             }
         );
         scanner.addListener('scan', function(content) {
@@ -47,12 +48,12 @@
 
             if(cameras.length > 0){
                 scanner.start(cameras[0]);
+                //scanner.start(cameras[[...Array(4).keys()]]);
+                // scanner.start(cameras.range(4));
             } else {
                 console.error("Não existe câmera no dispositivo!");
             }
         });
-
-
       })
 
       </script>
